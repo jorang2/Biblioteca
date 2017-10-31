@@ -1,0 +1,99 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+					
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableLibros" header="LibrosData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{librosView.data}" var="libros"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{libros.idLibro}" sortBy="#{libros.idLibro}" >
+										 <f:facet name="header">
+										<h:outputText value="idLibro"/>
+										</f:facet>
+										 <h:outputText value="#{libros.idLibro}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{libros.autor}" sortBy="#{libros.autor}" >
+										 <f:facet name="header">
+										<h:outputText value="Autor"/>
+										</f:facet>
+										 <h:outputText value="#{libros.autor}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{libros.genero}" sortBy="#{libros.genero}" >
+										 <f:facet name="header">
+										<h:outputText value="Genero"/>
+										</f:facet>
+										 <h:outputText value="#{libros.genero}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{libros.nombreLibro}" sortBy="#{libros.nombreLibro}" >
+										 <f:facet name="header">
+										<h:outputText value="NombreLibro"/>
+										</f:facet>
+										 <h:outputText value="#{libros.nombreLibro}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogLibros"
+										actionListener="#{librosView.action_edit}">
+										<f:attribute name="selectedLibros" value="#{libros}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{librosView.action_delete_datatable}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedLibros" value="#{libros}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{librosView.action_new()}" update=":dialogLibros" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogLibros" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{librosView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelLibros" header="Libros">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdLibro" value="IdLibro"/>
+									 <p:inputText id="txtIdLibro" binding="#{librosView.txtIdLibro}">
+									 <p:ajax update=":dialogLibros" listener="#{librosView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgAutor" value=" Autor"/>
+									<p:inputText id="txtAutor" disabled="true" binding="#{librosView.txtAutor}"/>
+																		<h:outputText id="msgGenero" value=" Genero"/>
+									<p:inputText id="txtGenero" disabled="true" binding="#{librosView.txtGenero}"/>
+																		<h:outputText id="msgNombreLibro" value=" NombreLibro"/>
+									<p:inputText id="txtNombreLibro" disabled="true" binding="#{librosView.txtNombreLibro}"/>
+																		
+																    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{librosView.btnSave}" value="Save" action="#{librosView.action_save()}" update=":dialogLibros :frm:panelDataTableLibros" />
+									<p:commandButton id="btnClear" value="Clear" action="#{librosView.action_clear()}" update=":dialogLibros" />
+									<p:commandButton id="btnExit" value="Exit" action="#{librosView.action_closeDialog()}" update=":dialogLibros" />
+								</div>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+

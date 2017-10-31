@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/10/2017 03:38:25 PM by Hibernate Tools 5.1.0.Final -->
+<hibernate-mapping>
+    <class name="com.dsof.model.Libros" table="libros" catalog="biblioteca" optimistic-lock="version">
+        <id name="idLibro" type="java.lang.String">
+            <column name="ID_LIBRO" length="10" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombreLibro" type="java.lang.String">
+            <column name="NOMBRE_LIBRO" length="30" not-null="true" />
+        </property>
+        <property name="autor" type="java.lang.String">
+            <column name="AUTOR" length="50" not-null="true" />
+        </property>
+        <property name="genero" type="java.lang.String">
+            <column name="GENERO" length="30" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

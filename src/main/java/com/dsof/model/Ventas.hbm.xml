@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10/10/2017 03:38:25 PM by Hibernate Tools 5.1.0.Final -->
+<hibernate-mapping>
+    <class name="com.dsof.model.Ventas" table="ventas" catalog="biblioteca" optimistic-lock="version">
+        <composite-id name="id" class="com.dsof.model.VentasId">
+            <key-property name="idVentas" type="java.lang.Integer">
+                <column name="ID_VENTAS" />
+            </key-property>
+            <key-property name="nombreLibro" type="java.lang.String">
+                <column name="NOMBRE_LIBRO" length="30" />
+            </key-property>
+            <key-property name="precioLibro" type="java.lang.String">
+                <column name="PRECIO_LIBRO" length="30" />
+            </key-property>
+            <key-property name="nombreCliente" type="java.lang.String">
+                <column name="NOMBRE_CLIENTE" length="30" />
+            </key-property>
+            <key-property name="fechaCompra" type="java.util.Date">
+                <column name="FECHA_COMPRA" length="10" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

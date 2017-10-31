@@ -1,0 +1,113 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+					
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableVentas" header="VentasData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{ventasView.data}" var="ventas"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{ventas.idVentas}" sortBy="#{ventas.idVentas}" >
+										 <f:facet name="header">
+										<h:outputText value="idVentas"/>
+										</f:facet>
+										 <h:outputText value="#{ventas.idVentas}"/>
+										 </p:column>
+			                    										<p:column filterBy="#{ventas.nombreLibro}" sortBy="#{ventas.nombreLibro}" >
+										 <f:facet name="header">
+										<h:outputText value="nombreLibro"/>
+										</f:facet>
+										 <h:outputText value="#{ventas.nombreLibro}"/>
+										 </p:column>
+			                    										<p:column filterBy="#{ventas.precioLibro}" sortBy="#{ventas.precioLibro}" >
+										 <f:facet name="header">
+										<h:outputText value="precioLibro"/>
+										</f:facet>
+										 <h:outputText value="#{ventas.precioLibro}"/>
+										 </p:column>
+			                    										<p:column filterBy="#{ventas.nombreCliente}" sortBy="#{ventas.nombreCliente}" >
+										 <f:facet name="header">
+										<h:outputText value="nombreCliente"/>
+										</f:facet>
+										 <h:outputText value="#{ventas.nombreCliente}"/>
+										 </p:column>
+			                    										<p:column filterBy="#{ventas.fechaCompra}" sortBy="#{ventas.fechaCompra}" >
+										 <f:facet name="header">
+										<h:outputText value="fechaCompra"/>
+										</f:facet>
+										 <h:outputText value="#{ventas.fechaCompra}"/>
+										 </p:column>
+			                    																			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogVentas"
+										actionListener="#{ventasView.action_edit}">
+										<f:attribute name="selectedVentas" value="#{ventas}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{ventasView.action_delete_datatable}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedVentas" value="#{ventas}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{ventasView.action_new()}" update=":dialogVentas" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogVentas" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{ventasView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelVentas" header="Ventas">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdVentas" value="IdVentas"/>
+									 <p:inputText id="txtIdVentas" binding="#{ventasView.txtIdVentas}">
+									 <p:ajax update=":dialogVentas" listener="#{ventasView.listener_txtId}"/>
+									 </p:inputText>	
+																		 <h:outputText id="msgNombreLibro" value="NombreLibro"/>
+									 <p:inputText id="txtNombreLibro" binding="#{ventasView.txtNombreLibro}">
+									 <p:ajax update=":dialogVentas" listener="#{ventasView.listener_txtId}"/>
+									 </p:inputText>	
+																		 <h:outputText id="msgPrecioLibro" value="PrecioLibro"/>
+									 <p:inputText id="txtPrecioLibro" binding="#{ventasView.txtPrecioLibro}">
+									 <p:ajax update=":dialogVentas" listener="#{ventasView.listener_txtId}"/>
+									 </p:inputText>	
+																		 <h:outputText id="msgNombreCliente" value="NombreCliente"/>
+									 <p:inputText id="txtNombreCliente" binding="#{ventasView.txtNombreCliente}">
+									 <p:ajax update=":dialogVentas" listener="#{ventasView.listener_txtId}"/>
+									 </p:inputText>	
+																																						<h:outputText id="msgEntity.getId().getFechaCompra()" value=" Entity.getId().getFechaCompra()"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{ventasView.txtEntity.getId().getFechaCompra()}" >
+										<p:ajax event="dateSelect" listener="#{ventasView.listener_txtEntity.getId().getFechaCompra()}" />
+										</p:calendar>
+																												
+																		
+																    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{ventasView.btnSave}" value="Save" action="#{ventasView.action_save()}" update=":dialogVentas :frm:panelDataTableVentas" />
+									<p:commandButton id="btnClear" value="Clear" action="#{ventasView.action_clear()}" update=":dialogVentas" />
+									<p:commandButton id="btnExit" value="Exit" action="#{ventasView.action_closeDialog()}" update=":dialogVentas" />
+								</div>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+

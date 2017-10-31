@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">	
+			
+			
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:growl id="men"/>
+					<p:panel id="panelVentas" header="Ventas">							
+						<h:panelGrid columns="2" id="panelGrid" >
+												 	<h:outputText id="msgIdVentas" value="IdVentas"/>
+						 	<p:inputText id="txtIdVentas" binding="#{ventasView.txtIdVentas}">
+						 		<p:ajax update="panelVentas,msg,panelBotones" listener="#{ventasView.listener_txtId}"/>
+						 	</p:inputText>	
+												 	<h:outputText id="msgNombreLibro" value="NombreLibro"/>
+						 	<p:inputText id="txtNombreLibro" binding="#{ventasView.txtNombreLibro}">
+						 		<p:ajax update="panelVentas,msg,panelBotones" listener="#{ventasView.listener_txtId}"/>
+						 	</p:inputText>	
+												 	<h:outputText id="msgPrecioLibro" value="PrecioLibro"/>
+						 	<p:inputText id="txtPrecioLibro" binding="#{ventasView.txtPrecioLibro}">
+						 		<p:ajax update="panelVentas,msg,panelBotones" listener="#{ventasView.listener_txtId}"/>
+						 	</p:inputText>	
+												 	<h:outputText id="msgNombreCliente" value="NombreCliente"/>
+						 	<p:inputText id="txtNombreCliente" binding="#{ventasView.txtNombreCliente}">
+						 		<p:ajax update="panelVentas,msg,panelBotones" listener="#{ventasView.listener_txtId}"/>
+						 	</p:inputText>	
+																										<h:outputText id="msgEntity.getId().getFechaCompra()" value=" Entity.getId().getFechaCompra()"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{ventasView.txtEntity.getId().getFechaCompra()}" >
+								<p:ajax event="dateSelect" listener="#{ventasView.listener_txtEntity.getId().getFechaCompra()}"  />
+							</p:calendar>
+																			
+												
+										   </h:panelGrid>
+				</p:panel>
+	   			<p:panel id="panelBotones">
+					<div align="center">					
+						<p:commandButton id="btnSave" binding="#{ventasView.btnSave}" disabled="true" value="Save" action="#{ventasView.action_save()}" update="panelVentas, msg, panelBotones, men" />
+						<p:commandButton id="btnDelete" binding="#{ventasView.btnDelete}" disabled="true" value="Delete" action="#{ventasView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelVentas, msg, panelBotones, men" />
+						<p:commandButton id="btnClear" value="Clear" action="#{ventasView.action_clear()}" update="panelVentas, msg, panelBotones, men" />
+					</div>
+				</p:panel>			
+			</h:form>
+			
+  </ui:define>
+</ui:composition>
