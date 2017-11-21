@@ -14,7 +14,7 @@ import javax.validation.constraints.*;
 /**
 * @author Zathura Code Generator http://zathuracode.org
 * www.zathuracode.org
-*
+*   PRUEBA DE GIT
 */
 @Entity
 @Table(name = "libros", schema = "${schema}")
